@@ -4,6 +4,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
+
 
 public class Driver {
     public static void main(String[] args){
@@ -11,7 +13,7 @@ public class Driver {
             Configuration conf=new Configuration();
             Job job = Job.getInstance(conf, "homework_5");
             job.setJarByClass(Driver.class);
-            job.setInputFormatClass(ExcelInputFormat.class);
+            job.setInputFormatClass(KeyValueTextInputFormat.class);
             job.setMapperClass(mapper.class);
             job.setReducerClass(reducer.class);
             job.setOutputKeyClass(Text.class);

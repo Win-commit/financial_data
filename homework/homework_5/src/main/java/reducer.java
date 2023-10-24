@@ -9,13 +9,14 @@ public class reducer extends Reducer<Text,Text,Text,Text>
     @Override
     protected void reduce(Text key,Iterable<Text> values,Context context) throws IOException ,InterruptedException
     {
-        Set<Text>unique_values=new HashSet<>();
+        // f**k ,Text.class  don't override hashcode() way and equal() way,So Set can't compare two Text objects
+        Set<String> unique_values=new HashSet<>();
         for(Text value:values){
-            unique_values.add(value);
+            unique_values.add(value.toString());
         }
 
-        for(Text UniqueValue:unique_values){
-            context.write(key,UniqueValue);
+        for(String UniqueValue:unique_values){
+            context.write(key,new Text(UniqueValue));
         }
 
     }
