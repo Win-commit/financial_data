@@ -24,7 +24,5 @@ buildNumber.properties
 .vscode/
 
 
-#
-# output
-#
-output
+
+
