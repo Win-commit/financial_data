@@ -1,6 +1,15 @@
-lrz_homework/Task1$reducer.class
+lrz_homework/Task3_driver.class
+lrz_homework/Task3_Train.class
+lrz_homework/Task3_Train$TrainReducer.class
 lrz_homework/Task1.class
-lrz_homework/Task1$mapper.class
 lrz_homework/Task2$mapper.class
+lrz_homework/Task3_Conf.class
 lrz_homework/Task2.class
+lrz_homework/Task3_Train$TrainMapper.class
+lrz_homework/Task3_Test$TestMapper.class
+lrz_homework/Task3_Test.class
+lrz_homework/Task1$reducer.class
+lrz_homework/Task3_Test$TestReducer.class
+lrz_homework/Task3_TrainResult.class
+lrz_homework/Task1$mapper.class
 lrz_homework/Task2$reducer.class
