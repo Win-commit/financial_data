@@ -1,7 +1,8 @@
 package lrz_homework;
 import java.io.IOException;
 import java.util.Iterator;
-
+import java.util.TreeMap;
+import java.util.Collections;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -26,7 +27,8 @@ public static class mapper extends Mapper<LongWritable,Text,Text,LongWritable>
 }
 
 public static class reducer extends Reducer<Text,LongWritable,Text,LongWritable>
-{   @Override
+{   TreeMap<Long,String> sortWeekday= new TreeMap<>(Collections.reverseOrder());
+    @Override
     public void reduce(Text key,Iterable<LongWritable> val,Context context)throws IOException ,InterruptedException
     {
         Iterator<LongWritable> iter=val.iterator();
@@ -34,7 +36,16 @@ public static class reducer extends Reducer<Text,LongWritable,Text,LongWritable>
         while(iter.hasNext()){
             sum+=iter.next().get();
         }
-        context.write(key,new LongWritable(sum));
+        // context.write(key,new LongWritable(sum));
+        sortWeekday.put(sum,key.toString());
+    }
+
+    public void cleanup(Context context)throws IOException ,InterruptedException
+    {
+        for(Long count:sortWeekday.keySet())
+        {
+            context.write(new Text(sortWeekday.get(count)),new LongWritable(count));
+        }
     }
 
 }
