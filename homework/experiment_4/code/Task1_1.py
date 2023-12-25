@@ -5,7 +5,7 @@ from pyspark.sql.types import StringType
 
 spark = SparkSession.builder.appName("Loan Amount Distribution").getOrCreate()
 
-# 读取数据
+
 df = spark.read.csv("file:///home/lrz/financial_data/homework/experiment_4/data/application_data_clean.csv", header=True, inferSchema=True)
 
 # 确保 AMT_CREDIT 是整数类型
@@ -20,14 +20,14 @@ def credit_range(amount, interval=10000):
 # 注册为 UDF
 credit_range_udf = udf(credit_range, StringType())
 
-# 计算分布
+
 distribution = df.withColumn("CREDIT_RANGE", credit_range_udf("AMT_CREDIT")) \
     .groupBy("CREDIT_RANGE") \
     .count() \
     .orderBy("CREDIT_RANGE")
 
-# 输出结果到文件
+
 distribution.rdd.map(lambda x: f"{x[0]},{x[1]}").saveAsTextFile("file:///home/lrz/financial_data/homework/experiment_4/output/output1_1")
 
-# 结束 Spark 会话
+
 spark.stop()

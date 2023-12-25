@@ -1,10 +1,10 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, count, round
 
-# 初始化 Spark Session
+
 spark = SparkSession.builder.appName("Gender Children Statistics").getOrCreate()
 
-# 加载数据
+
 df = spark.read.csv("file:///home/lrz/financial_data/homework/experiment_4/data/application_data_clean.csv", header=True, inferSchema=True)
 
 # 筛选男性客户并计算孩子数量的分布
@@ -21,8 +21,8 @@ children_ratio = children_ratio.select("CNT_CHILDREN", "ratio").orderBy("CNT_CHI
 
 rdd = children_ratio.rdd.map(lambda x: ','.join(str(i) for i in x))
 
-# 保存RDD为文本文件
+
 rdd.saveAsTextFile("file:///home/lrz/financial_data/homework/experiment_4/output/output2_1")
 
-# 停止 Spark Session
+
 spark.stop()
